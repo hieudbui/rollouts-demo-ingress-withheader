@@ -2,7 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 1
+canaryReplicaCount: 1
 
 image:
   repository: nginx
@@ -40,12 +41,12 @@ service:
   type: ClusterIP
   port: 80
 
-hostname: c-33aa5aa1-2711-435d-a978-b32c51341bb2-cloudyuga-28466807-j9ptn.cloudyuga.guru
+hostname: ic-demo.local
 
 canary:
   header:
-   name: canary
-   value: yep
+   name: x-canary
+   value: true
 
 ingress:
   enabled: false

@@ -18,13 +18,18 @@ spec:
           stableIngress: {{ .Chart.Name }}-ingress
           additionalIngressAnnotations:
             canary-by-header: {{ .Values.canary.header.name }}
-            canary-by-header-value: {{ .Values.canary.header.value }}
+            canary-by-header-value: "{{ .Values.canary.header.value }}"
       steps:
-      - setWeight: 50
-      - pause: {duration: 600}
-      - setWeight: 100
-      - pause: {duration: 100}
-  revisionHistoryLimit: 2
+      # we can not use set weight here since this option does not support traffic routing
+#      - setWeight: 1
+        # because we're using traffic routing we need to explicitly
+        # set the replica counts needed to
+      - setCanaryScale:
+          replicas: {{ .Values.canaryReplicaCount }}
+      - pause: {}
+  rollbackWindow:
+    revisions: 5
+  revisionHistoryLimit: 5
   template:
     metadata:
       labels:
