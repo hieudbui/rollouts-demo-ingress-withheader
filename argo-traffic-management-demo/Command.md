@@ -1,6 +1,9 @@
 This is the commands for demo
 
 ```
+# install argo
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 
 # command to test against stable
 curl -v http://ic-demo.local/
