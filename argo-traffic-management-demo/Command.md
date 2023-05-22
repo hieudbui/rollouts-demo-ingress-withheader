@@ -5,6 +5,9 @@ This is the commands for demo
 kubectl create namespace argo-rollouts
 kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 
+# install nginx
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.1/deploy/static/provider/cloud/deploy.yaml
+
 # command to test against stable
 curl -v http://ic-demo.local/
 
@@ -37,3 +40,8 @@ kubectl argo rollouts get rollout demo-nginx -n ic-demo --watch
 # complete rollout
 kubectl argo rollouts promote demo-nginx -n ic-demo
 ```
+
+# command to see if port 80 is setup
+# not sure why but for docker desktop, port 80 wasn't working so i had to reset the k8s cluster
+# and reinstall everything
+netstat -p tcp -van | grep '^Proto\|LISTEN
